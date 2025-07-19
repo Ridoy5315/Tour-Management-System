@@ -73,8 +73,17 @@ const getAllUsers = async() => {
      };
 }
 
+const getSingleUser = async(payload: string) => {
+     const user = await User.findOne({email: payload})
+
+     return {
+          data: user
+     }
+}
+
 export const UserServices = {
      createUser,
      getAllUsers,
+     getSingleUser,
      updateUser
 }
