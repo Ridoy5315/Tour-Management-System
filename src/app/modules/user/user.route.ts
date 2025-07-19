@@ -17,6 +17,7 @@ router.get(
   checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
   UserController.getAllUsers
 );
+router.get("/:email", checkAuth(Role.ADMIN, Role.SUPER_ADMIN), UserController.getSingleUser)
 router.patch(
   "/:id",
   validateRequest(updateUserZodSchema),

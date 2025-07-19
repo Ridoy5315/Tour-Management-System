@@ -54,8 +54,23 @@ const getAllUsers = catchAsync(
   }
 );
 
+const getSingleUser = catchAsync(async(req: Request, res: Response) => {
+  const email = req.params.email;
+
+  const result = await UserServices.getSingleUser(email)
+
+  sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.CREATED,
+      message: "User Retrieved Successfully",
+      data: result.data,
+    })
+
+})
+
 export const UserController = {
   createUser,
   getAllUsers,
+  getSingleUser,
   updateUser
 };
