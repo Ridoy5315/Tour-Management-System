@@ -27,6 +27,7 @@ const getAllTours = catchAsync(async(req: Request, res: Response) => {
           meta: result.meta
      })
 })
+
 const getSingleTour = catchAsync(async(req: Request, res: Response) => {
      const slug = req.params.slug
      const result = await TourService.getSingleTour(slug);
@@ -75,8 +76,8 @@ const createTourType = catchAsync(async(req: Request, res: Response) => {
 })
 
 const getAllTourTypes = catchAsync(async(req: Request, res: Response) => {
-
-     const result = await TourService.getAllTourTypes();
+     const query = req.query;
+     const result = await TourService.getAllTourTypes(query as Record<string, string>);
 
      sendResponse(res, {
           statusCode: 200,

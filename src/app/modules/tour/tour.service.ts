@@ -3,7 +3,7 @@ import { Tour, TourType } from "./tour.model";
 import { ITour, ITourType } from "./tour.interface";
 import AppError from "../../errorHelpers/AppError";
 import httpStatus from "http-status-codes";
-import { tourSearchableFields } from "./tour.constant";
+import { tourSearchableFields, tourTypeSearchableFields } from "./tour.constant";
 
 const createTour = async (payload: ITour) => {
   const existingTour = await Tour.findOne({ title: payload.title });
@@ -24,8 +24,6 @@ const getAllTours = async (query : Record<string, string>) => {
   const queryBuilder = new QueryBuilder(Tour.find(), query)
 
   const tours = await queryBuilder.search(tourSearchableFields).filter().sort().fields().paginate()
-
-  // const meta = await queryBuilder.getMeta()
 
   const [data, meta] = await Promise.all([
     tours.build(),
@@ -69,14 +67,25 @@ const createTourType = async (payload: ITourType) => {
   return await TourType.create({ name });
 };
 
-const getAllTourTypes = async () => {
-  return await TourType.find();
+const getAllTourTypes = async (query: Record<string, string>) => {
+  const queryBuilder = new QueryBuilder(TourType.find(), query)
+
+  const tourTypes = await queryBuilder.search(tourTypeSearchableFields).filter().sort().fields().paginate()
+
+  const [data, meta] = await Promise.all([
+    tourTypes.build(),
+    queryBuilder.getMeta()
+  ])
+
+  return {
+        data,
+        meta
+    }
 };
 
 const getSingleTourType = async (id: string) => {
-  console.log(id)
+
   const tourType = await TourType.findOne({_id: id});
-  console.log(tourType)
   return  tourType
 }
 
