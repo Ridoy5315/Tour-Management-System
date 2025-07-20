@@ -1,3 +1,5 @@
+import { userSearchableFields } from './user.constant';
+import { QueryBuilder } from './../../utils/queryBuilder';
 import { JwtPayload } from 'jsonwebtoken';
 import AppError from '../../errorHelpers/AppError';
 import { IAuthProvider, IUser, Role } from './user.interface';
@@ -60,21 +62,28 @@ const updateUser = async(userId: string, payload: Partial<IUser>, decodedToken: 
      return newUpdatedUser
 }
 
-const getAllUsers = async() => {
-     const users = await User.find({})
+const getAllUsers = async(query: Record<string, string>) => {
+     const queryBuilder = new QueryBuilder(User.find(), query)
+    const usersData = queryBuilder
+        .filter()
+        .search(userSearchableFields)
+        .sort()
+        .fields()
+        .paginate();
 
-     const totalUsers = await User.countDocuments();
+    const [data, meta] = await Promise.all([
+        usersData.build(),
+        queryBuilder.getMeta()
+    ])
 
-     return {
-          data: users,
-          meta: {
-               total : totalUsers
-          }
-     };
+    return {
+        data,
+        meta
+    }
 }
 
-const getSingleUser = async(payload: string) => {
-     const user = await User.findOne({email: payload})
+const getSingleUser = async(id: string) => {
+     const user = await User.findById(id)
 
      return {
           data: user
