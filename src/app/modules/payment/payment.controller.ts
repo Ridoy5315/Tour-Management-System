@@ -1,9 +1,22 @@
+import { sendResponse } from './../../utils/sendResponse';
 import { envVars } from './../../config/env';
 import { Request, Response } from 'express';
 import { catchAsync } from './../../utils/catchAsync';
 import { PaymentService } from './payment.service';
 
 
+const initPayment = catchAsync(async(req: Request, res: Response) => {
+     const bookingId = req.params.bookingId;
+
+     const result = await PaymentService.initPayment(bookingId as string);
+
+     sendResponse(res, {
+        statusCode: 201,
+        success: true,
+        message: "Payment done successfully",
+        data: result,
+    });
+})
 const successPayment = catchAsync(async(req: Request, res: Response) => {
      const query = req.query;
      const result = await PaymentService.successPayment(query as Record<string, string>)
@@ -32,6 +45,7 @@ const cancelPayment = catchAsync(async(req: Request, res: Response) => {
 })
 
 export const PaymentController = {
+     initPayment,
      successPayment,
      failPayment,
      cancelPayment
