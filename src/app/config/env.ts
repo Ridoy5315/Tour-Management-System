@@ -18,6 +18,18 @@ interface EnvConfig {
   GOOGLE_CALLBACK_URL: string;
   EXPRESS_SESSION_SECRET: string;
   FRONTEND_URL: string;
+  SSL: {
+    STORE_ID: string;
+    STORE_PASSWORD: string;
+    SSL_PAYMENT_API: string;
+    SSL_VALIDATION_API: string;
+    SSL_SUCCESS_BACKEND_URL: string;
+    SSL_FAIL_BACKEND_URL: string;
+    SSL_CANCEL_BACKEND_URL: string;
+    SSL_SUCCESS_FRONTEND_URL: string;
+    SSL_FAIL_FRONTEND_URL: string;
+    SSL_CANCEL_FRONTEND_URL: string;
+  };
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -37,6 +49,16 @@ const loadEnvVariables = (): EnvConfig => {
     "GOOGLE_CALLBACK_URL",
     "EXPRESS_SESSION_SECRET",
     "FRONTEND_URL",
+    "SSLCOMMERZ_STORE_ID",
+    "SSLCOMMERZ_STORE_PASSWORD",
+    "SSLCOMMERZ_PAYMENT_API",
+    "SSLCOMMERZ_VALIDATION_API",
+    "SSLCOMMERZ_SUCCESS_BACKEND_URL",
+    "SSLCOMMERZ_FAIL_BACKEND_URL",
+    "SSLCOMMERZ_CANCEL_BACKEND_URL",
+    "SSLCOMMERZ_SUCCESS_FRONTEND_URL",
+    "SSLCOMMERZ_FAIL_FRONTEND_URL",
+    "SSLCOMMERZ_CANCEL_FRONTEND_URL"
   ];
 
   requiredEnvVariables.forEach((key) => {
@@ -61,6 +83,18 @@ const loadEnvVariables = (): EnvConfig => {
     GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL as string,
     EXPRESS_SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET as string,
     FRONTEND_URL: process.env.FRONTEND_URL as string,
+    SSL: {
+      STORE_ID: process.env.SSLCOMMERZ_STORE_ID as string,
+      STORE_PASSWORD: process.env.SSLCOMMERZ_STORE_PASSWORD as string,
+      SSL_PAYMENT_API: process.env.SSLCOMMERZ_PAYMENT_API as string,
+      SSL_VALIDATION_API: process.env.SSLCOMMERZ_VALIDATION_API as string,
+      SSL_SUCCESS_BACKEND_URL: process.env.SSLCOMMERZ_SUCCESS_BACKEND_URL as string,
+      SSL_FAIL_BACKEND_URL: process.env.SSLCOMMERZ_FAIL_BACKEND_URL as string,
+      SSL_CANCEL_BACKEND_URL: process.env.SSLCOMMERZ_CANCEL_BACKEND_URL as string,
+      SSL_SUCCESS_FRONTEND_URL: process.env.SSLCOMMERZ_SUCCESS_FRONTEND_URL as string,
+      SSL_FAIL_FRONTEND_URL: process.env.SSLCOMMERZ_FAIL_FRONTEND_URL as string,
+      SSL_CANCEL_FRONTEND_URL: process.env.SSLCOMMERZ_CANCEL_FRONTEND_URL as string,
+    },
   };
 };
 
