@@ -30,6 +30,11 @@ interface EnvConfig {
     SSL_FAIL_FRONTEND_URL: string;
     SSL_CANCEL_FRONTEND_URL: string;
   };
+  CLOUDINARY: {
+    CLOUDINARY_CLOUD_NAME: string;
+    CLOUDINARY_API_KEY: string;
+    CLOUDINARY_API_SECRET: string;
+  };
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -58,7 +63,10 @@ const loadEnvVariables = (): EnvConfig => {
     "SSLCOMMERZ_CANCEL_BACKEND_URL",
     "SSLCOMMERZ_SUCCESS_FRONTEND_URL",
     "SSLCOMMERZ_FAIL_FRONTEND_URL",
-    "SSLCOMMERZ_CANCEL_FRONTEND_URL"
+    "SSLCOMMERZ_CANCEL_FRONTEND_URL",
+    "CLOUDINARY_CLOUD_NAME",
+    "CLOUDINARY_API_KEY",
+    "CLOUDINARY_API_SECRET",
   ];
 
   requiredEnvVariables.forEach((key) => {
@@ -88,12 +96,21 @@ const loadEnvVariables = (): EnvConfig => {
       STORE_PASSWORD: process.env.SSLCOMMERZ_STORE_PASSWORD as string,
       SSL_PAYMENT_API: process.env.SSLCOMMERZ_PAYMENT_API as string,
       SSL_VALIDATION_API: process.env.SSLCOMMERZ_VALIDATION_API as string,
-      SSL_SUCCESS_BACKEND_URL: process.env.SSLCOMMERZ_SUCCESS_BACKEND_URL as string,
+      SSL_SUCCESS_BACKEND_URL: process.env
+        .SSLCOMMERZ_SUCCESS_BACKEND_URL as string,
       SSL_FAIL_BACKEND_URL: process.env.SSLCOMMERZ_FAIL_BACKEND_URL as string,
-      SSL_CANCEL_BACKEND_URL: process.env.SSLCOMMERZ_CANCEL_BACKEND_URL as string,
-      SSL_SUCCESS_FRONTEND_URL: process.env.SSLCOMMERZ_SUCCESS_FRONTEND_URL as string,
+      SSL_CANCEL_BACKEND_URL: process.env
+        .SSLCOMMERZ_CANCEL_BACKEND_URL as string,
+      SSL_SUCCESS_FRONTEND_URL: process.env
+        .SSLCOMMERZ_SUCCESS_FRONTEND_URL as string,
       SSL_FAIL_FRONTEND_URL: process.env.SSLCOMMERZ_FAIL_FRONTEND_URL as string,
-      SSL_CANCEL_FRONTEND_URL: process.env.SSLCOMMERZ_CANCEL_FRONTEND_URL as string,
+      SSL_CANCEL_FRONTEND_URL: process.env
+        .SSLCOMMERZ_CANCEL_FRONTEND_URL as string,
+    },
+    CLOUDINARY: {
+      CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
+      CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
+      CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
     },
   };
 };
