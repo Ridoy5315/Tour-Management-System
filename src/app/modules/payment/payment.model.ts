@@ -1,7 +1,6 @@
 import { model, Schema } from "mongoose"
 import { IPayment, PAYMENT_STATUS } from "./payment.interface"
 
-
 const paymentSchema = new Schema<IPayment>({
      booking: {
           type: Schema.Types.ObjectId,
