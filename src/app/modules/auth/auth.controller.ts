@@ -143,6 +143,40 @@ const changePassword = catchAsync(
     });
   }
 );
+const resetPassword = catchAsync(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async (req: Request & { user?: JwtPayload },res: Response) => {
+    const decodedToken = req.user;
+
+    await AuthServices.resetPassword(req.body, decodedToken as JwtPayload);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Password change Successfully",
+      data: null,
+    });
+  }
+);
+const forgotPassword = catchAsync(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async (
+    req: Request & { user?: JwtPayload },
+    res: Response,
+    next: NextFunction
+  ) => {
+    const {email} = req.body ;
+
+    await AuthServices.forgotPassword(email);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Email sent Successfully",
+      data: null,
+    });
+  }
+);
 
 const googleCallback = catchAsync(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -173,5 +207,7 @@ export const AuthControllers = {
   logout,
   changePassword,
   setPassword,
+  forgotPassword,
+  resetPassword,
   googleCallback,
 };

@@ -16,7 +16,7 @@ const createUser = catchAsync(
       message: "User Created Successfully",
       data: user,
     })
-  }
+  }       
 );
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -54,6 +54,20 @@ const getAllUsers = catchAsync(
     })
   }
 );
+const getMe = catchAsync(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async (req: Request, res: Response, next: NextFunction) => {
+    const decodedToken = req.user as JwtPayload;
+    const result = await UserServices.getMe(decodedToken.userId);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.CREATED,
+      message: "My information Retrieved Successfully",
+      data: result.data
+    })
+  }
+);
 
 const getSingleUser = catchAsync(async(req: Request, res: Response) => {
   const id = req.params.id;
@@ -63,7 +77,7 @@ const getSingleUser = catchAsync(async(req: Request, res: Response) => {
   sendResponse(res, {
       success: true,
       statusCode: httpStatus.CREATED,
-      message: "User Retrieved Successfully",
+      message: "Your profile Retrieved Successfully",
       data: result.data,
     })
 
@@ -72,6 +86,7 @@ const getSingleUser = catchAsync(async(req: Request, res: Response) => {
 export const UserController = {
   createUser,
   getAllUsers,
+  getMe,
   getSingleUser,
   updateUser
 };
