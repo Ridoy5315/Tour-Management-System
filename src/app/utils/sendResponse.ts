@@ -1,8 +1,10 @@
 import { Response } from "express";
-import { success } from "zod";
 
 interface TMeta {
-     total: number
+     page: number,
+     limit: number,
+     totalPage: number,
+     total: number,
 }
 
 interface TResponse<T> {

@@ -30,6 +30,24 @@ interface EnvConfig {
     SSL_FAIL_FRONTEND_URL: string;
     SSL_CANCEL_FRONTEND_URL: string;
   };
+  CLOUDINARY: {
+    CLOUDINARY_CLOUD_NAME: string;
+    CLOUDINARY_API_KEY: string;
+    CLOUDINARY_API_SECRET: string;
+  };
+  EMAIL_SENDER: {
+    SMTP_USER: string;
+    SMTP_HOST: string;
+    SMTP_PORT: string;
+    SMTP_PASS: string;
+    SMTP_FROM: string;
+  };
+  REDIS: {
+    REDIS_HOST: string;
+    REDIS_PORT: string;
+    REDIS_USERNAME: string;
+    REDIS_PASSWORD: string;
+  };
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -58,7 +76,19 @@ const loadEnvVariables = (): EnvConfig => {
     "SSLCOMMERZ_CANCEL_BACKEND_URL",
     "SSLCOMMERZ_SUCCESS_FRONTEND_URL",
     "SSLCOMMERZ_FAIL_FRONTEND_URL",
-    "SSLCOMMERZ_CANCEL_FRONTEND_URL"
+    "SSLCOMMERZ_CANCEL_FRONTEND_URL",
+    "CLOUDINARY_CLOUD_NAME",
+    "CLOUDINARY_API_KEY",
+    "CLOUDINARY_API_SECRET",
+    "SMTP_USER",
+    "SMTP_HOST",
+    "SMTP_PORT",
+    "SMTP_PASS",
+    "SMTP_FROM",
+    "REDIS_HOST",
+    "REDIS_PORT",
+    "REDIS_USERNAME",
+    "REDIS_PASSWORD",
   ];
 
   requiredEnvVariables.forEach((key) => {
@@ -88,12 +118,34 @@ const loadEnvVariables = (): EnvConfig => {
       STORE_PASSWORD: process.env.SSLCOMMERZ_STORE_PASSWORD as string,
       SSL_PAYMENT_API: process.env.SSLCOMMERZ_PAYMENT_API as string,
       SSL_VALIDATION_API: process.env.SSLCOMMERZ_VALIDATION_API as string,
-      SSL_SUCCESS_BACKEND_URL: process.env.SSLCOMMERZ_SUCCESS_BACKEND_URL as string,
+      SSL_SUCCESS_BACKEND_URL: process.env
+        .SSLCOMMERZ_SUCCESS_BACKEND_URL as string,
       SSL_FAIL_BACKEND_URL: process.env.SSLCOMMERZ_FAIL_BACKEND_URL as string,
-      SSL_CANCEL_BACKEND_URL: process.env.SSLCOMMERZ_CANCEL_BACKEND_URL as string,
-      SSL_SUCCESS_FRONTEND_URL: process.env.SSLCOMMERZ_SUCCESS_FRONTEND_URL as string,
+      SSL_CANCEL_BACKEND_URL: process.env
+        .SSLCOMMERZ_CANCEL_BACKEND_URL as string,
+      SSL_SUCCESS_FRONTEND_URL: process.env
+        .SSLCOMMERZ_SUCCESS_FRONTEND_URL as string,
       SSL_FAIL_FRONTEND_URL: process.env.SSLCOMMERZ_FAIL_FRONTEND_URL as string,
-      SSL_CANCEL_FRONTEND_URL: process.env.SSLCOMMERZ_CANCEL_FRONTEND_URL as string,
+      SSL_CANCEL_FRONTEND_URL: process.env
+        .SSLCOMMERZ_CANCEL_FRONTEND_URL as string,
+    },
+    CLOUDINARY: {
+      CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
+      CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
+      CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
+    },
+    EMAIL_SENDER: {
+      SMTP_USER: process.env.SMTP_USER as string,
+      SMTP_HOST: process.env.SMTP_HOST as string,
+      SMTP_PORT: process.env.SMTP_PORT as string,
+      SMTP_PASS: process.env.SMTP_PASS as string,
+      SMTP_FROM: process.env.SMTP_FROM as string,
+    },
+    REDIS: {
+      REDIS_HOST: process.env.REDIS_HOST as string,
+      REDIS_PORT: process.env.REDIS_PORT as string,
+      REDIS_USERNAME: process.env.REDIS_USERNAME as string,
+      REDIS_PASSWORD: process.env.REDIS_PASSWORD as string,
     },
   };
 };

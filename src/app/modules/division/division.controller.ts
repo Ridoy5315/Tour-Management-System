@@ -2,15 +2,20 @@ import { sendResponse } from './../../utils/sendResponse';
 import { Request, Response, } from "express";
 import { catchAsync } from "../../utils/catchAsync";
 import { DivisionServices } from "./division.service";
+import { IDivision } from './division.interface';
 
 
 const createDivision = catchAsync(async(req: Request, res: Response) => {
-     const result = await DivisionServices.createDivision(req.body);
+     const payload : IDivision = {
+          ...req.body,
+          thumbnail: req.file?.path
+     }
+     const result = await DivisionServices.createDivision(payload);
      sendResponse(res,  {
           statusCode: 201,
           success: true,
           message: "Division created",
-          data: result
+          data: result,
      })
 });
 
@@ -41,7 +46,11 @@ const getSingleDivision = catchAsync(async(req: Request, res: Response) =>{
 
 const updateDivision = catchAsync(async(req: Request, res: Response) => {
      const id = req.params.id;
-     const result = await DivisionServices.updateDivision(id, req.body);
+     const payload : IDivision = {
+          ...req.body,
+          thumbnail: req.file?.path
+     }
+     const result = await DivisionServices.updateDivision(id, payload);
 
      sendResponse(res,  {
           statusCode: 200,
