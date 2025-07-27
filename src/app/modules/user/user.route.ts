@@ -19,7 +19,7 @@ router.get(
 );
 router.get("/me", checkAuth(...Object.values(Role)), UserController.getMe)
 
-router.get("/:email", checkAuth(Role.ADMIN, Role.SUPER_ADMIN), UserController.getSingleUser)
+router.get("/:id", checkAuth(Role.ADMIN, Role.SUPER_ADMIN), UserController.getSingleUser)
 router.patch(
   "/:id",
   validateRequest(updateUserZodSchema),
