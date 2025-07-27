@@ -3,6 +3,7 @@ import { envVars } from './../../config/env';
 import { Request, Response } from 'express';
 import { catchAsync } from './../../utils/catchAsync';
 import { PaymentService } from './payment.service';
+import { JwtPayload } from 'jsonwebtoken';
 
 
 const initPayment = catchAsync(async(req: Request, res: Response) => {
@@ -16,6 +17,18 @@ const initPayment = catchAsync(async(req: Request, res: Response) => {
         message: "Payment done successfully",
         data: result,
     });
+})
+const getInvoiceDownloadUrl = catchAsync(async(req: Request, res: Response) => {
+     const {paymentId} = req.params;
+     const decodedToken = req.user;
+     const result = await PaymentService.getInvoiceDownloadUrl(paymentId, decodedToken as JwtPayload)
+
+     sendResponse(res, {
+          statusCode: 200,
+          success: true,
+          message: "Invoice download URL retrieved successfully",
+          data: result
+     })
 })
 const successPayment = catchAsync(async(req: Request, res: Response) => {
      const query = req.query;
@@ -47,6 +60,7 @@ const cancelPayment = catchAsync(async(req: Request, res: Response) => {
 export const PaymentController = {
      initPayment,
      successPayment,
+     getInvoiceDownloadUrl,
      failPayment,
      cancelPayment
 }
