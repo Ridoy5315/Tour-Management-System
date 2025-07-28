@@ -1,3 +1,4 @@
+import { SSLService } from './../sslCommerz/sslCommerz.service';
 import { sendResponse } from './../../utils/sendResponse';
 import { envVars } from './../../config/env';
 import { Request, Response } from 'express';
@@ -34,6 +35,8 @@ const successPayment = catchAsync(async(req: Request, res: Response) => {
      const query = req.query;
      const result = await PaymentService.successPayment(query as Record<string, string>)
 
+     console.log(result)
+
      if(result.success){
           res.redirect(`${envVars.SSL.SSL_SUCCESS_FRONTEND_URL}?transactionId=${query.transactionId}&message=${result.message}&amount=${query.amount}&status=${query.status}`)
      }
@@ -57,10 +60,23 @@ const cancelPayment = catchAsync(async(req: Request, res: Response) => {
      }
 })
 
+const validatePayment = catchAsync(async(req: Request, res: Response) => {
+     console.log("sslcommerz ipn url body ", req.body)
+      await SSLService.validatePayment(req.body)
+
+     sendResponse(res, {
+          statusCode: 200,
+          success: true,
+          message: "Payment Validated successfully",
+          data: null
+     })
+})
+
 export const PaymentController = {
      initPayment,
      successPayment,
      getInvoiceDownloadUrl,
      failPayment,
-     cancelPayment
+     cancelPayment,
+     validatePayment
 }

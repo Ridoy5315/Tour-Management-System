@@ -41,6 +41,7 @@ export const generatePdf = async(invoiceData: IInvoiceData): Promise<Buffer<Arra
                doc.end()
 
           })
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
      } catch (error: any) {
           console.log(error)
           throw new AppError(httpStatus.BAD_REQUEST, `Pdf creation error ${error}`)

@@ -3,8 +3,6 @@ import { envVars } from "../config/env";
 import { User } from "../modules/user/user.model";
 import { Role } from "../modules/user/user.interface";
 import bcryptjs from "bcryptjs";
-import { sendResponse } from "./sendResponse";
-import httpStatus from "http-status-codes";
 
 export const seedSuperAdmin = async () => {
   try {

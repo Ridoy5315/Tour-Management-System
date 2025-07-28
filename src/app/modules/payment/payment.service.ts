@@ -1,4 +1,3 @@
-import { populate } from "dotenv";
 import { sendEmail } from "./../../utils/sendEmail";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from "http-status-codes";
@@ -13,6 +12,7 @@ import { generatePdf, IInvoiceData } from "../../utils/invoice";
 import { ITour } from "../tour/tour.interface";
 import { IUser } from "../user/user.interface";
 import { uploadBufferToCloudinary } from "../../config/cloudinary.config";
+import { JwtPayload } from "jsonwebtoken";
 
 const initPayment = async (bookingId: string) => {
   const payment = await Payment.findOne({ booking: bookingId });
@@ -127,7 +127,7 @@ const successPayment = async (query: Record<string, string>) => {
   }
 };
 
-const getInvoiceDownloadUrl = async (paymentId: string, decodedToken) => {
+const getInvoiceDownloadUrl = async (paymentId: string, decodedToken: JwtPayload) => {
   const userId = decodedToken.userId;
   const email = decodedToken.email;
   console.log("from payment service",email)

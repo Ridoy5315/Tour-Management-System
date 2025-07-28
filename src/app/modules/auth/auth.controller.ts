@@ -5,10 +5,10 @@ import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import { AuthServices } from "./auth.service";
 import AppError from "../../errorHelpers/AppError";
-import { setAuthCookies } from "../user/setCookie";
 import { JwtPayload } from "jsonwebtoken";
 import { envVars } from "../../config/env";
 import passport from "passport";
+import { setAuthCookies } from "../../utils/setCookie";
 
 const credentialsLogin = catchAsync(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -101,8 +101,7 @@ const setPassword = catchAsync(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async (
     req: Request & { user?: JwtPayload },
-    res: Response,
-    next: NextFunction
+    res: Response
   ) => {
     const decodedToken = req.user as JwtPayload;
     const {password} = req.body
@@ -122,8 +121,7 @@ const changePassword = catchAsync(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async (
     req: Request & { user?: JwtPayload },
-    res: Response,
-    next: NextFunction
+    res: Response
   ) => {
     const oldPassword = req.body.oldPassword;
     const newPassword = req.body.newPassword;
@@ -162,8 +160,7 @@ const forgotPassword = catchAsync(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async (
     req: Request & { user?: JwtPayload },
-    res: Response,
-    next: NextFunction
+    res: Response
   ) => {
     const {email} = req.body ;
 

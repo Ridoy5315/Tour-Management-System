@@ -31,7 +31,7 @@ export const uploadBufferToCloudinary = async (buffer: Buffer, fileName: string)
                     resolve(result)
                }).end(buffer)
           })
-     } catch (error) {
+     } catch (error : any) {
           console.log(error)
           throw new AppError(httpStatus.BAD_REQUEST, `Error uploading file ${error.message}`)
      }

@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TErrorSources } from "../interfaces/error.types";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const handleZodError = (err : any) => {
      const errorSources : TErrorSources[] = [];
-     err.issues.forEach(issue => {
+     err.issues.forEach((issue : any) => {
           errorSources.push({
                path : issue.path[issue.path.length - 1],
                // path : issue.path.length > 1 && issue.path.reverse().join("inside")
